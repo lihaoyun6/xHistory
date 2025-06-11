@@ -24,9 +24,7 @@ func getActiveWindowGeometry() -> (x: Int, y: Int, width: Int, height: Int)? {
 func openCustomURLWithActiveWindowGeometry(prompt: String = "") {
     if let geometry = getActiveWindowGeometry() {
         if let url = URL(string: "xhistory://show?x=\(geometry.x)&y=\(geometry.y)&w=\(geometry.width)&h=\(geometry.height)\(prompt)") {
-            let config = NSWorkspace.OpenConfiguration()
-            config.activates = false
-            NSWorkspace.shared.open(url, configuration: config)
+            _ = try? NSWorkspace.shared.open(url, options: [.withoutActivation],  configuration: [:] )
         }
     }
 }
