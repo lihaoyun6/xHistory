@@ -3,6 +3,29 @@
     <channel>
         <title>xHistory</title>
         <item>
+            <title>v0.1.8</title>
+            <pubDate>Wed, 11 Jun 2025 17:56:04 +0800</pubDate>
+            <sparkle:version>18</sparkle:version>
+            <sparkle:shortVersionString>0.1.8</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <style>ul{margin-top: 0;margin-bottom: 7;padding-left: 18;}</style><ul>
+                <li>支持编辑已收藏的命令文本.</li>
+                <li><b style="color: red">我的免费开发者证书将在6月14日过期, 请收藏 xHistory 的<a href="https://lihaoyun6.github.io/xhistory/">主页</a>以随时下载最新版</b></li>
+                </ul><ul>
+                <li>Support editing of pinned commands.</li>
+                <li><b style="color: red">My certificate will expire on June 14, bookmark this <a href="https://lihaoyun6.github.io/xhistory/">page</a> to download xHistory at any time!
+                </b></li>
+                </ul><img src="https://github.com/lihaoyun6/xHistory/raw/main/img/donate.png" width="250"/>
+            ]]></description>
+            <enclosure url="https://github.com/lihaoyun6/xHistory/releases/download/0.1.8/xHistory_v0.1.8.dmg" length="3941134" type="application/octet-stream" sparkle:edSignature="P7dQHY0WLpw21SXKYW0yp9oOPXX/xIUc7WzYgxV6mHnwCM2rEoHvu6+msLde6vv3Lvr7cIdGP0BlB/jRKRkbCg=="/>
+            <sparkle:deltas>
+                <enclosure url="https://github.com/lihaoyun6/xHistory/releases/download/0.1.8/xUpdate18-16.delta" sparkle:deltaFrom="16" length="594754" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="864752" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="VarOCJ3RHmoavNqRQi+Uf9HQvFTj8t4z5cTn4bd/gHOG4mCjDouqphF945C8IFtYRXKdYcz4FtZKLqIC2XMxCg=="/>
+                <enclosure url="https://github.com/lihaoyun6/xHistory/releases/download/0.1.8/xUpdate18-15.delta" sparkle:deltaFrom="15" length="778814" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="864752" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="WjJ3+qzo0mBsNAKk+iiGfGDAApVGESKMCeMveq2HSNhbQbBk49PuLj3V307MdbU7dC5921VUhZAGe9d2uUemBw=="/>
+                <enclosure url="https://github.com/lihaoyun6/xHistory/releases/download/0.1.8/xUpdate18-14.delta" sparkle:deltaFrom="14" length="795338" type="application/octet-stream" sparkle:deltaFromSparkleExecutableSize="864752" sparkle:deltaFromSparkleLocales="de,he,ar,el,ja,fa,en" sparkle:edSignature="nSByuZbt1xb4qLRJ/vWvbeEURCarKxB7XwFSkFvErjNvVvtmNdh1v3bkUiFsa19QT4fa2ET+sXvCQR0Hpv7lDw=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>v0.1.6</title>
             <pubDate>Tue, 07 Jan 2025 11:19:41 +0800</pubDate>
             <sparkle:version>16</sparkle:version>
