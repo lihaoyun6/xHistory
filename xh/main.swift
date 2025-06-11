@@ -8,7 +8,7 @@ import ArgumentParser
 import Foundation
 
 struct xhistory: ParsableCommand {
-    static var configuration = CommandConfiguration(version: "0.1.3")
+    static var configuration = CommandConfiguration(version: "0.1.4")
     
     @Flag(name: .shortAndLong, help: "Read the history file for the current session")
     var session: Bool = false
@@ -16,7 +16,7 @@ struct xhistory: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Open xHistory overlay and show pinned history")
     var pinned: Bool = false
     
-    @Flag(name: .shortAndLong, help: "Open xHistory overlay and show pinned history")
+    @Flag(name: .shortAndLong, help: "Open xHistory overlay and show cloud archive")
     var archive: Bool = false
     
     @Option(name: .shortAndLong, help: ArgumentHelp("Get custom shell configuration", valueName: "bash|zsh[23]"))

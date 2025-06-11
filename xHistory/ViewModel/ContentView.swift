@@ -211,7 +211,7 @@ struct ContentView: View {
                                 ForEach(keyWord == "" ? pinnedList.indices : resultP.indices, id: \.self) { index in
                                     CommandView(index: index,
                                                 command: keyWord == "" ? pinnedList[index] : resultP[index],
-                                                pinnedList: $pinnedList, fromMenubar: fromMenubar)
+                                                pinnedList: $pinnedList, fromMenubar: fromMenubar, editable: true)
                                     .id(index)
                                     .padding(.horizontal, 1)
                                     .shadow(color: (panelOpacity != 100 && !fromMenubar) ? .clear :.secondary.opacity(0.8), radius: 0.3, y: 0.5)
@@ -354,7 +354,8 @@ struct ContentView: View {
 }
 
 struct ActionButtons: View {
-    var command: String
+    @State var command: String
+    @State var editable: Bool = false
     
     @Binding var showMore: Bool
     @Binding var pinnedList: [String]
@@ -362,6 +363,8 @@ struct ActionButtons: View {
     @State private var copied: Bool = false
     @State private var boomList = [String]()
     @State private var boomMode: Bool = false
+    @State private var oldCommand = ""
+    @State private var save: Bool = false
     
     var body: some View {
         HStack(spacing: 5) {
@@ -408,25 +411,52 @@ struct ActionButtons: View {
                         .frame(maxHeight: .infinity)
                 }).onHover { hovering in showMore = hovering }
         }
+        .onAppear { oldCommand = command }
         .onChange(of: boomList) { _ in boomMode = true }
+        .onChange(of: command) { _ in save = true }
         .sheet(isPresented: $boomMode) {
             VStack(spacing: 10) {
                 GroupBox(label: Text("Magic Slice").font(.headline)) {
                     FlowLayout(items: boomList, spacing: 6) { item in CommandSliceView(command: item) }
                 }
-                GroupBox(label: Text("Manual Selection").font(.headline)) {
-                    Text(AttributedString(SyntaxHighlighter.shared.getHighlightedText(for: command)))
-                        .font(.system(size: 11, weight: .regular, design: .monospaced))
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(nil)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .textSelection(.enabled)
-                        .padding(2)
+                if editable {
+                    GroupBox(label: Text("Edit Command").font(.headline)) {
+                        ZStack {
+                            TextEditor(text: $command)
+                                .font(.system(size: 11, weight: .regular, design: .monospaced))
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .textSelection(.enabled)
+                                .padding(3)
+                        }.background(Color.background)
+                    }
+                } else {
+                    GroupBox(label: Text("Manual Selection").font(.headline)) {
+                        Text(AttributedString(SyntaxHighlighter.shared.getHighlightedText(for: command)))
+                            .font(.system(size: 11, weight: .regular, design: .monospaced))
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(nil)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .textSelection(.enabled)
+                            .padding(2)
+                    }
                 }
                 HStack {
                     Spacer()
-                    Button("Close") { boomMode = false }
-                        .keyboardShortcut(.defaultAction)
+                    if save {
+                        Button("Cancel") { boomMode = false }
+                        Button("Save") {
+                            if let index = pinnedList.firstIndex(of: oldCommand) {
+                                pinnedList[index] = command
+                                ud.set(pinnedList, forKey: "pinnedList")
+                            }
+                            boomMode = false
+                        }.keyboardShortcut(.defaultAction)
+                    } else {
+                        Button("Close") { boomMode = false }
+                            .keyboardShortcut(.defaultAction)
+                    }
                 }
             }
             .padding()
@@ -441,6 +471,7 @@ struct CommandView: View {
     
     @Binding var pinnedList: [String]
     var fromMenubar: Bool = false
+    var editable: Bool = false
     
     @AppStorage("panelOpacity") var panelOpacity = 100
     @AppStorage("autoClose") var autoClose = false
@@ -470,7 +501,7 @@ struct CommandView: View {
                 }
             HStack(spacing: 0) {
                 if buttonSide == "left" {
-                    ActionButtons(command: command, showMore: $showMore, pinnedList: $pinnedList)
+                    ActionButtons(command: command, editable: editable, showMore: $showMore, pinnedList: $pinnedList)
                         .padding(.leading, 8)
                 }
                 Button(action: {
@@ -496,7 +527,7 @@ struct CommandView: View {
                 .buttonStyle(.plain)
                 .setHotkey(index: index)
                 if buttonSide == "right" {
-                    ActionButtons(command: command, showMore: $showMore, pinnedList: $pinnedList)
+                    ActionButtons(command: command, editable: editable, showMore: $showMore, pinnedList: $pinnedList)
                         .padding(.trailing, 8)
                 }
             }
