@@ -504,7 +504,7 @@ struct BlacklistView: View {
             GroupBox(label:
                         VStack(alignment: .leading) {
                 Text("Blacklist").font(.headline)
-                Text("The following commands will be ignored from the history.")
+                Text("The following commands will be ignored from the history")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
@@ -551,7 +551,7 @@ struct BlacklistView: View {
                             }.padding()
                         }
                     }
-                    Text("You can add a \"#\" at the beginning of a keyword to convert it to a regex pattern.")
+                    Text("You can add a \"#\" at the beginning of a keyword to convert it to a regex pattern")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }

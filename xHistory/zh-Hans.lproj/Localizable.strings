@@ -79,7 +79,7 @@
 "Quit" = "退出";
 "These settings will only take effect in newly logged-in shells when you modify them." = "当你修改这些配置后, 需要新登录的 Shell 才会生效.";
 "Blacklist" = "屏蔽列表";
-"The following commands will be ignored from the history." = "下列命令将会从历史记录中被忽略.";
+"The following commands will be ignored from the history" = "下列命令将会从历史记录中被忽略";
 "Enter Command" = "输入命令";
 "Add to List" = "添加到列表";
 "Cancel" = "取消";
@@ -100,7 +100,7 @@
 "Are you sure?" = "确认进行此操作吗?";
 "You will not be able to recover it!" = "此操作无法复原, 请谨慎确认!";
 "Delete This Archive?" = "确认要删除此存档吗?";
-"You can add a \"#\" at the beginning of a keyword to convert it to a regex pattern." = "在任屏蔽词条前添加 # 号, 即可让 xHistory 将视为正则表达式来进行匹配.";
+"You can add a \"#\" at the beginning of a keyword to convert it to a regex pattern" = "若要使用正则表达式进行匹配, 请在屏蔽词条前添加 # 符号";
 "Switch to \"History\" page" = "切换至\"历史记录\"页面";
 "Switch to \"Pinned\" page" = "切换至\"命令收藏\"页面";
 "Switch to \"Archive\" page" = "切换至\"云端存档\"页面";

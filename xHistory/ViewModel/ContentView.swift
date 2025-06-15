@@ -354,7 +354,8 @@ struct ContentView: View {
 }
 
 struct ActionButtons: View {
-    @State var command: String
+    var command: String
+    @State var cmd = ""
     @State var editable: Bool = false
     
     @Binding var showMore: Bool
@@ -363,7 +364,6 @@ struct ActionButtons: View {
     @State private var copied: Bool = false
     @State private var boomList = [String]()
     @State private var boomMode: Bool = false
-    @State private var oldCommand = ""
     @State private var save: Bool = false
     
     var body: some View {
@@ -409,11 +409,11 @@ struct ActionButtons: View {
                         .font(.system(size: 12, weight: .bold))
                         .frame(width: 14)
                         .frame(maxHeight: .infinity)
-                }).onHover { hovering in showMore = hovering }
+                }).onHover { hovering in if hovering { showMore = true }}
         }
-        .onAppear { oldCommand = command }
+        .onAppear { cmd = command }
         .onChange(of: boomList) { _ in boomMode = true }
-        .onChange(of: command) { _ in save = true }
+        .onChange(of: cmd) { _ in save = true }
         .sheet(isPresented: $boomMode) {
             VStack(spacing: 10) {
                 GroupBox(label: Text("Magic Slice").font(.headline)) {
@@ -422,7 +422,7 @@ struct ActionButtons: View {
                 if editable {
                     GroupBox(label: Text("Edit Command").font(.headline)) {
                         ZStack {
-                            TextEditor(text: $command)
+                            TextEditor(text: $cmd)
                                 .font(.system(size: 11, weight: .regular, design: .monospaced))
                                 .multilineTextAlignment(.leading)
                                 .lineLimit(nil)
@@ -447,7 +447,7 @@ struct ActionButtons: View {
                     if save {
                         Button("Cancel") { boomMode = false }
                         Button("Save") {
-                            if let index = pinnedList.firstIndex(of: oldCommand) {
+                            if let index = pinnedList.firstIndex(of: command) {
                                 pinnedList[index] = command
                                 ud.set(pinnedList, forKey: "pinnedList")
                             }
@@ -539,7 +539,10 @@ struct CommandView: View {
                     .padding(1)
             }
             .mask(RoundedRectangle(cornerRadius: 5, style: .continuous))
-            .onHover { hovering in isHovered = hovering }
+            .onHover { hovering in
+                isHovered = hovering
+                if !hovering { showMore = false }
+            }
         }
     }
 }
@@ -565,10 +568,11 @@ struct CommandSliceView: View {
             }, label: {
                 Text(command)
                     .font(.system(size: 11, weight: .regular, design: .monospaced))
-                    .lineLimit(nil)
+                    .lineLimit(1)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 8)
                     .padding(.trailing, 14)
+                    .help(command)
             }).buttonStyle(.plain)
             HoverButton(
                 color: .secondary,
